@@ -1,2 +1,2 @@
 # Distribution Estimations
- Project for EECS738 Spring 2021
+ Project 1 for EECS738 Spring 2021
