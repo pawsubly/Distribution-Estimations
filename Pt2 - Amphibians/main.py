@@ -3,6 +3,7 @@ import numpy as np #numpy!
 import matplotlib.pyplot as plt #mpl
 
 df = pd.read_excel('data.xls', index_col=0) # read in data
+
 z = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
     1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000,
     2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000,
@@ -27,10 +28,58 @@ plt.xlabel('Log of Surface Area in m2')
 plt.ylabel('Frequency')
 plt.title('Third Attempt (Log)')
 maxfreq = n.max()
-# Set a clean upper y-axis limit.
+# Set a clean upper y-axis limit
 plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
 
 print(df['SR'].skew())
 crim_log = np.log(df['SR'])
 print(crim_log.skew())
+plt.show()
+
+NR_column = df.loc[:,'NR']
+plt.xlabel('Number of Reservoirs')
+plt.ylabel('Frequency')
+plt.title('# of Reservoirs')
+plt.hist(x=df['NR'], bins = 15, density=True, histtype='bar')
+plt.show()
+
+plt.xlabel('Reservoir Type')
+plt.ylabel('Frequency')
+plt.hist(x=df['TR'], bins = 15)
+plt.show()
+
+plt.xlabel('Vegetation Type')
+plt.ylabel('Frequency')
+plt.title('Vegetation Type')
+plt.hist(x=df['VR'], bins = [0, 1, 2, 3, 4])
+plt.show()
+
+plt.xlabel('Surrounding Land Type')
+plt.ylabel('Frequency')
+plt.title('Primary Land Type')
+plt.hist(x=df['SUR1'])
+plt.show()
+
+plt.xlabel('Surrounding Land Type')
+plt.ylabel('Frequency')
+plt.title('Secondary Land Type')
+plt.hist(x=df['SUR2'])
+plt.show()
+
+plt.xlabel('Surrounding Land Type')
+plt.ylabel('Frequency')
+plt.title('Tertiary Land Type')
+plt.hist(x=df['SUR3'])
+plt.show()
+
+plt.xlabel('Usage of Reservoir Type')
+plt.ylabel('Frequency')
+plt.title('Reservoir Usage')
+plt.hist(x=df['UR'])
+plt.show()
+
+plt.xlabel('Presence of Fishing')
+plt.ylabel('Frequency')
+plt.title('Type of Fishing')
+plt.hist(x=df['FR'])
 plt.show()
