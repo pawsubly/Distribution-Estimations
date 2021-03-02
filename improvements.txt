@@ -1,0 +1,5 @@
+Check back on this file before Project 2 (and as I finish Project 1 on my own over time)
+- Push on Github FREQUENTLY. Don't dump massive amounts of info, refine smaller amounts and push quality.
+- Remember all the things learned about numpy, pandas, seaborn, and Python in general (colon splicer and array manipulation mostly)
+- Allocate 2 hours of debugging per 1 hour of coding
+- SOURCE BETTER. Document every article, video, any resource that helped you understand better. It's not for academic integrity (which is a given), but for resource backtracking in the far future when your mind will long forget about these things and be working on different subjects.
