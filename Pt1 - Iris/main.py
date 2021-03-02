@@ -25,12 +25,12 @@ class GMM:
         self.mixingcoeff = self.weights.mean(axis = 0)
     
     def bayes(self, X):
-        likelihood = np.zeros((self.row, self.k)) #this matrix should contain probabilities for every cluster in its row
+        likelihood = np.zeros((self.row, self.k)) #contains probabilities for every cluster in its row
         for i in range (self.k):
             distribution = multivariate_normal(
                 mean = self.mu[i],
                 cov = self.sigma[i],
-                allow_singular=True)
+                allow_singular=True) # actually, this should be removed but I can't figure out the bug
             likelihood[:,i] = distribution.pdf(X)
 
         numerator = likelihood * self.mixingcoeff
@@ -54,39 +54,35 @@ class GMM:
     
     def predict(self, X):
         weights = self.bayes(X)
-        return np.argmax(weights, axis = 1)
+        return np.argmax(weights, axis = 1) 
 
 df = pd.read_excel('iris.xls')
 
-sepal_column = df.loc[:,'Sepal Length (cm)']
-sepalwidth_column = df.loc[:, 'Sepal Width (cm)']
+sepal_column = df.loc[:,'Petal Length (cm)']
+sepalwidth_column = df.loc[:, 'Petal Width (cm)']
 nums = sepal_column.values
 nums2 = sepalwidth_column.values
 X = np.vstack((nums,nums2))
 
-gmm = GMM(k=2, max_iter = 150)
+gmm = GMM(k=2, max_iter = 10)
 gmm.fit(X)
 labels = gmm.predict(X)
 
+'''
 sns.scatterplot(x=nums, y=nums2, hue=df.loc[:, 'Class'])
-plt.xlabel('Sepal Length (cm)')
-plt.ylabel('Sepal Width (cm)')
+plt.xlabel('Petal Length (cm)')
+plt.ylabel('Petal Width (cm)')
 plt.title("GMM Potential")
 plt.show()
-
 '''
+
 y = np.array([4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8]) #sepal length bins
 
-mean, stdev = 5.843, 0.828 #mean and stdev
-s = np.random.normal(mean, stdev, 1000)
-plt.scatter(s, 1/(stdev * np.sqrt(2 * np.pi)) * np.exp( - (s - mean)**2 / (2 * stdev**2) ), color='r')
-plt.hist(x=df['Sepal Length (cm)'], bins=9, range=(4.3, 7.9) , density=True, histtype='bar') #plotting our Sepal Length data
-plt.xlabel('Sepal Length (cm)')
+s = np.random.normal(np.mean(nums2), np.std(nums2, ddof=1), 1000)
+# plt.scatter(s, 1/(stdev * np.sqrt(2 * np.pi)) * np.exp( - (s - mean)**2 / (2 * stdev**2) ), color='r')
+plt.hist(x=df['Petal Length (cm)'], bins = 10, density=True, histtype='bar') #plotting our Sepal Length data
+plt.xlabel('Petal Length (cm)')
 plt.ylabel('Probability Density')
-plt.title('A First Attempt at a Gaussian Model')
-plt.grid(axis='x', alpha = 0.5) # so we can lightly see the bar edges
+plt.title('Petal Length')
 
 plt.show()
-
-print(df)
-'''
